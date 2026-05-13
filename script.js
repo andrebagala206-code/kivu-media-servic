@@ -169,63 +169,6 @@ function handleFormSubmit(formId, callback) {
     });
 }
 
-// ============================================
-// FORMULAIRE DE RÉSERVATION
-// ============================================
-
-handleFormSubmit('formReservation', (data) => {
-    // Récupérer les valeurs avec data.get()
-    const nom = data.get('nom');
-    const whatsapp = data.get('whatsapp');
-    const insta = data.get('insta');
-    const facebook = data.get('facebook');
-    const date = data.get('date');
-    const ceremonie = data.get('ceremonie');
-    const details = data.get('details');
-    
-    // Vérifier que les champs obligatoires sont remplis
-    if (!nom || !whatsapp || !date || !ceremonie) {
-        alert('❌ Veuillez remplir : Nom, WhatsApp, Date et Type de cérémonie');
-        throw new Error('Champs obligatoires manquants');
-    }
-    
-    // Ajouter les options facultatives
-    const instaText = insta ? `%0A*Insta:* ${insta}` : '';
-    const facebookText = facebook ? `%0A*Facebook:* ${facebook}` : '';
-    const detailsText = details ? `%0A*Détails:* ${details}` : '%0A*Détails:* Aucun';
-    
-    // Construire le message final
-    return `*📸 NOUVELLE RÉSERVATION*%0A%0A*Nom:* ${nom}%0A*WhatsApp:* ${whatsapp}${instaText}${facebookText}%0A*Date:* ${date}%0A*Type:* ${ceremonie}${detailsText}%0A%0A_Merci de confirmer la disponibilité_`;
-});
-
-// ============================================
-// FORMULAIRE DE FORMATION
-// ============================================
-
-handleFormSubmit('formFormation', (data) => {
-    // Récupérer les valeurs avec data.get()
-    const nomForm = data.get('nomForm');
-    const whatsappForm = data.get('whatsappForm');
-    const packForm = data.get('packForm');
-    const motivation = data.get('motivation');
-    
-    // Vérifier que les champs obligatoires sont remplis
-    if (!nomForm || !whatsappForm || !packForm) {
-        alert('❌ Veuillez remplir : Nom, WhatsApp et Pack de formation');
-        throw new Error('Champs obligatoires manquants');
-    }
-    
-    // Ajouter la motivation si présente
-    const motivationText = motivation ? `%0A*Motivation:* ${motivation}` : '';
-    
-    // Construire le message final
-    return `*🎓 DEMANDE FORMATION PHOTO*%0A%0A*Nom:* ${nomForm}%0A*WhatsApp:* ${whatsappForm}%0A*Pack:* ${packForm}${motivationText}`;
-});
-
-// FORMULAIRE FORMATION  
-handleFormSubmit('formFormation', (data) => {
-    return `*🎓 DEMANDE FORMATION PHOTO*%0A%0A*Nom:* ${data.get('nomForm')}%0A*WhatsApp:* ${data.get('whatsappForm')}%0A*Pack:* ${data.get('packForm')}%0A*Motivation:* ${data.get('motivation') || 'Non spécifiée'}`;
-});
 
 // ==================== SCROLL TO TOP ====================
 const scrollTopBtn = $('#scrollTop');
@@ -292,5 +235,79 @@ function initDarkMode() {
 }
 
 initDarkMode();
+
+
+
+// ============================================
+// CODE POUR LES FORMULAIRES UNIQUEMENT
+// À AJOUTER À LA FIN DE VOTRE FICHIER script.js
+// ============================================
+
+// Formulaire de réservation
+const formReservation = document.getElementById('formReservation');
+if (formReservation) {
+    formReservation.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        // Récupérer les valeurs
+        const nom = document.getElementById('nom').value;
+        const whatsapp = document.getElementById('whatsapp').value;
+        const insta = document.getElementById('insta').value;
+        const facebook = document.getElementById('facebook').value;
+        const date = document.getElementById('date').value;
+        const ceremonie = document.getElementById('ceremonie').value;
+        const details = document.getElementById('details').value;
+        
+        // Vérifications
+        if (!nom || !whatsapp || !date || !ceremonie) {
+            alert('Veuillez remplir tous les champs obligatoires');
+            return;
+        }
+        
+        // Construire le message
+        let message = `*📸 NOUVELLE RÉSERVATION*%0A%0A`;
+        message += `*Nom:* ${nom}%0A`;
+        message += `*WhatsApp:* ${whatsapp}%0A`;
+        if (insta) message += `*Insta:* ${insta}%0A`;
+        if (facebook) message += `*Facebook:* ${facebook}%0A`;
+        message += `*Date:* ${date}%0A`;
+        message += `*Type:* ${ceremonie}%0A`;
+        message += `*Détails:* ${details || 'Aucun'}%0A%0A`;
+        message += `_Merci de confirmer la disponibilité_`;
+        
+        // Envoyer
+        window.open(`https://wa.me/243905501305?text=${message}`, '_blank');
+    });
+}
+
+// Formulaire de formation
+const formFormation = document.getElementById('formFormation');
+if (formFormation) {
+    formFormation.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        // Récupérer les valeurs
+        const nom = document.getElementById('nomForm').value;
+        const whatsapp = document.getElementById('whatsappForm').value;
+        const pack = document.getElementById('packForm').value;
+        const motivation = document.getElementById('motivation').value;
+        
+        // Vérifications
+        if (!nom || !whatsapp || !pack) {
+            alert('Veuillez remplir tous les champs obligatoires');
+            return;
+        }
+        
+        // Construire le message
+        let message = `*🎓 DEMANDE FORMATION PHOTO*%0A%0A`;
+        message += `*Nom:* ${nom}%0A`;
+        message += `*WhatsApp:* ${whatsapp}%0A`;
+        message += `*Pack:* ${pack}%0A`;
+        if (motivation) message += `*Motivation:* ${motivation}`;
+        
+        // Envoyer
+        window.open(`https://wa.me/243992126727?text=${message}`, '_blank');
+    });
+}
 
 
