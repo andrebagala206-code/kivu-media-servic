@@ -33,7 +33,6 @@ navBtns.forEach(btn => {
 // ==================== FILTRE GALERIE ====================
 const filterBtns = $$('.filter-btn');
 const galleryCards = $$('.card');
-
 filterBtns.forEach(btn => {
     btn.addEventListener('click', function() {
         filterBtns.forEach(b => {
@@ -236,8 +235,6 @@ function initDarkMode() {
 
 initDarkMode();
 
-
-
 // ============================================
 // CODE POUR LES FORMULAIRES UNIQUEMENT
 // À AJOUTER À LA FIN DE VOTRE FICHIER script.js
@@ -276,7 +273,7 @@ if (formReservation) {
         message += `_Merci de confirmer la disponibilité_`;
         
         // Envoyer
-        window.open(`https://wa.me/243905501305?text=${message}`, '_blank');
+        window.open(`https://wa.me/243992126727?text=${message}`, '_blank');
     });
 }
 
